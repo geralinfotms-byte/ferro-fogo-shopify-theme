@@ -1,0 +1,14 @@
+<div class="collection-page page-transition">
+  <div class="container" style="padding: 3rem 0 6rem;">
+    <h1>{{ collection.title }}</h1>
+    {% if collection.description != blank %}
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">{{ collection.description }}</p>
+    {% endif %}
+    
+    <div class="products-grid">
+      {% for product in collection.products %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    </div>
+  </div>
+</div>

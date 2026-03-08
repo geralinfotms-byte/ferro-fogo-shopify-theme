@@ -1,0 +1,121 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Ferro & Fogo",
+    "theme_version": "1.0.0",
+    "theme_author": "Emergent",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://support.shopify.com/"
+  },
+  {
+    "name": "Cores",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Cores Principais"
+      },
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Cor Principal",
+        "default": "#FF6B00"
+      },
+      {
+        "type": "color",
+        "id": "color_background",
+        "label": "Cor de Fundo",
+        "default": "#0A0A0A"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Cor do Texto",
+        "default": "#F9FAFB"
+      },
+      {
+        "type": "color",
+        "id": "color_secondary_text",
+        "label": "Cor do Texto Secundário",
+        "default": "#9CA3AF"
+      }
+    ]
+  },
+  {
+    "name": "Tipografia",
+    "settings": [
+      {
+        "type": "font_picker",
+        "id": "font_heading",
+        "label": "Fonte dos Títulos",
+        "default": "barlow_condensed_n7"
+      },
+      {
+        "type": "font_picker",
+        "id": "font_body",
+        "label": "Fonte do Corpo",
+        "default": "manrope_n4"
+      }
+    ]
+  },
+  {
+    "name": "Logo",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "logo",
+        "label": "Logo da Loja"
+      },
+      {
+        "type": "range",
+        "id": "logo_width",
+        "min": 50,
+        "max": 300,
+        "step": 10,
+        "default": 150,
+        "label": "Largura do Logo (px)"
+      }
+    ]
+  },
+  {
+    "name": "Redes Sociais",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Links das Redes Sociais"
+      },
+      {
+        "type": "text",
+        "id": "social_facebook",
+        "label": "Facebook",
+        "placeholder": "https://facebook.com/sua-loja"
+      },
+      {
+        "type": "text",
+        "id": "social_instagram",
+        "label": "Instagram",
+        "placeholder": "https://instagram.com/sua-loja"
+      },
+      {
+        "type": "text",
+        "id": "social_whatsapp",
+        "label": "WhatsApp",
+        "placeholder": "5511999999999"
+      }
+    ]
+  },
+  {
+    "name": "Checkout",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Configurações do Checkout"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_vendor",
+        "label": "Mostrar fabricante do produto",
+        "default": false
+      }
+    ]
+  }
+]

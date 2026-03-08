@@ -1,0 +1,53 @@
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-section__content">
+      <h2 class="cta-section__title">{{ section.settings.title | default: 'Precisa de um Orçamento Especial?' }}</h2>
+      <p class="cta-section__description">
+        {{ section.settings.description | default: 'Entre em contato conosco para orçamentos de grandes quantidades ou produtos específicos. Nossa equipe está pronta para atender sua empresa.' }}
+      </p>
+      {% if section.settings.button_text != blank %}
+        <a href="{{ section.settings.button_link }}" class="btn-primary">
+          {{ section.settings.button_text }}
+          <i data-lucide="chevron-right" style="width: 20px; height: 20px;"></i>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Seção CTA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Precisa de um Orçamento Especial?"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descrição",
+      "default": "Entre em contato conosco para orçamentos de grandes quantidades ou produtos específicos. Nossa equipe está pronta para atender sua empresa."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto do Botão",
+      "default": "Fale Conosco"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link do Botão"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Seção CTA"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,36 @@
+{% layout none %}
+
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ shop.name }} - Vale Presente</title>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+</head>
+<body style="min-height: 100vh; display: flex; align-items: center; justify-content: center;">
+  <div style="text-align: center; padding: 2rem;">
+    <h1 style="color: var(--primary);">{{ shop.name }}</h1>
+    <h2>Vale Presente</h2>
+    <p style="font-size: 2rem; font-weight: bold; margin: 2rem 0;">{{ gift_card.initial_value | money }}</p>
+    
+    <div style="background: var(--background-alt); padding: 2rem; margin: 2rem 0; border: 1px solid var(--surface-border);">
+      <p style="color: var(--text-secondary); margin-bottom: 0.5rem;">Código do Vale:</p>
+      <p style="font-family: monospace; font-size: 1.5rem; letter-spacing: 0.1em;">{{ gift_card.code | format_code }}</p>
+    </div>
+    
+    {% if gift_card.balance != gift_card.initial_value %}
+      <p>Saldo restante: {{ gift_card.balance | money }}</p>
+    {% endif %}
+    
+    {% if gift_card.expired %}
+      <p style="color: var(--error);">Este vale presente expirou em {{ gift_card.expires_on | date: "%d/%m/%Y" }}</p>
+    {% elsif gift_card.expires_on %}
+      <p style="color: var(--text-secondary);">Válido até {{ gift_card.expires_on | date: "%d/%m/%Y" }}</p>
+    {% endif %}
+    
+    <a href="{{ shop.url }}" class="btn-primary" style="margin-top: 2rem;">Ir às Compras</a>
+  </div>
+</body>
+</html>

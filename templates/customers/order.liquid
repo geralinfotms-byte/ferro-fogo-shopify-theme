@@ -1,0 +1,100 @@
+<div class="contact-page page-transition">
+  <div class="container" style="padding: 3rem 0 6rem; max-width: 700px; margin: 0 auto;">
+    <a href="/account" style="color: var(--primary); display: inline-block; margin-bottom: 1rem;">← Voltar para minha conta</a>
+    
+    <h1>Pedido {{ order.name }}</h1>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+      Realizado em {{ order.created_at | date: "%d/%m/%Y às %H:%M" }}
+    </p>
+    
+    {% if order.cancelled %}
+      <div style="background: var(--error); color: white; padding: 1rem; margin-bottom: 2rem;">
+        <p><strong>Pedido cancelado</strong> em {{ order.cancelled_at | date: "%d/%m/%Y" }}</p>
+        <p>Motivo: {{ order.cancel_reason }}</p>
+      </div>
+    {% endif %}
+    
+    <!-- Order Items -->
+    <div style="background: var(--background-alt); border: 1px solid var(--surface-border); margin-bottom: 2rem;">
+      <table style="width: 100%; border-collapse: collapse;">
+        <thead>
+          <tr style="border-bottom: 1px solid var(--surface-border);">
+            <th style="text-align: left; padding: 1rem;">Produto</th>
+            <th style="text-align: center; padding: 1rem;">Qtd</th>
+            <th style="text-align: right; padding: 1rem;">Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for line_item in order.line_items %}
+            <tr style="border-bottom: 1px solid var(--surface-border);">
+              <td style="padding: 1rem;">
+                <p><strong>{{ line_item.title }}</strong></p>
+                {% if line_item.sku != blank %}
+                  <p style="font-family: monospace; font-size: 0.75rem; color: var(--text-secondary);">{{ line_item.sku }}</p>
+                {% endif %}
+              </td>
+              <td style="text-align: center; padding: 1rem;">{{ line_item.quantity }}</td>
+              <td style="text-align: right; padding: 1rem; color: var(--primary); font-weight: bold;">{{ line_item.line_price | money }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      
+      <div style="padding: 1rem; border-top: 1px solid var(--surface-border);">
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+          <span>Subtotal</span>
+          <span>{{ order.subtotal_price | money }}</span>
+        </div>
+        
+        {% for discount in order.discounts %}
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem; color: var(--success);">
+            <span>Desconto ({{ discount.code }})</span>
+            <span>-{{ discount.savings | money }}</span>
+          </div>
+        {% endfor %}
+        
+        {% for shipping_method in order.shipping_methods %}
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span>Frete ({{ shipping_method.title }})</span>
+            <span>{{ shipping_method.price | money }}</span>
+          </div>
+        {% endfor %}
+        
+        {% for tax_line in order.tax_lines %}
+          <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+            <span>{{ tax_line.title }} ({{ tax_line.rate | times: 100 }}%)</span>
+            <span>{{ tax_line.price | money }}</span>
+          </div>
+        {% endfor %}
+        
+        <div style="display: flex; justify-content: space-between; font-size: 1.25rem; font-weight: bold; padding-top: 0.5rem; border-top: 1px solid var(--surface-border);">
+          <span>Total</span>
+          <span style="color: var(--primary);">{{ order.total_price | money }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Addresses -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+      <div style="background: var(--background-alt); padding: 1.5rem; border: 1px solid var(--surface-border);">
+        <h3>Endereço de Entrega</h3>
+        <p>{{ order.shipping_address.first_name }} {{ order.shipping_address.last_name }}</p>
+        {% if order.shipping_address.company != blank %}<p>{{ order.shipping_address.company }}</p>{% endif %}
+        <p>{{ order.shipping_address.address1 }}</p>
+        {% if order.shipping_address.address2 != blank %}<p>{{ order.shipping_address.address2 }}</p>{% endif %}
+        <p>{{ order.shipping_address.city }}, {{ order.shipping_address.province }} {{ order.shipping_address.zip }}</p>
+        <p>{{ order.shipping_address.country }}</p>
+      </div>
+      
+      <div style="background: var(--background-alt); padding: 1.5rem; border: 1px solid var(--surface-border);">
+        <h3>Endereço de Cobrança</h3>
+        <p>{{ order.billing_address.first_name }} {{ order.billing_address.last_name }}</p>
+        {% if order.billing_address.company != blank %}<p>{{ order.billing_address.company }}</p>{% endif %}
+        <p>{{ order.billing_address.address1 }}</p>
+        {% if order.billing_address.address2 != blank %}<p>{{ order.billing_address.address2 }}</p>{% endif %}
+        <p>{{ order.billing_address.city }}, {{ order.billing_address.province }} {{ order.billing_address.zip }}</p>
+        <p>{{ order.billing_address.country }}</p>
+      </div>
+    </div>
+  </div>
+</div>

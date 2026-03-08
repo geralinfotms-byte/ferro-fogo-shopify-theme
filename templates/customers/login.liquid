@@ -1,0 +1,29 @@
+<div class="contact-page page-transition">
+  <div class="container" style="padding: 3rem 0 6rem; max-width: 500px; margin: 0 auto;">
+    <h1>Entrar</h1>
+    
+    {% form 'customer_login' %}
+      {{ form.errors | default_errors }}
+      
+      <div style="margin-bottom: 1.5rem;">
+        <label for="customer-email">Email</label>
+        <input type="email" id="customer-email" name="customer[email]" required autocomplete="email">
+      </div>
+      
+      <div style="margin-bottom: 1.5rem;">
+        <label for="customer-password">Senha</label>
+        <input type="password" id="customer-password" name="customer[password]" required autocomplete="current-password">
+      </div>
+      
+      <button type="submit" class="btn-primary w-full">Entrar</button>
+      
+      <p style="text-align: center; margin-top: 1.5rem;">
+        <a href="/account/recover" style="color: var(--primary);">Esqueceu a senha?</a>
+      </p>
+      
+      <p style="text-align: center; margin-top: 1rem; color: var(--text-secondary);">
+        Não tem conta? <a href="/account/register" style="color: var(--primary);">Criar agora</a>
+      </p>
+    {% endform %}
+  </div>
+</div>

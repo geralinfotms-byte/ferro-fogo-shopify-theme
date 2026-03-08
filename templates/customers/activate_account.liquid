@@ -1,0 +1,25 @@
+<div class="contact-page page-transition">
+  <div class="container" style="padding: 3rem 0 6rem; max-width: 500px; margin: 0 auto;">
+    <h1>Ativar Conta</h1>
+    
+    {% form 'activate_customer_password' %}
+      {{ form.errors | default_errors }}
+      
+      <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">
+        Crie uma senha para ativar sua conta.
+      </p>
+      
+      <div style="margin-bottom: 1.5rem;">
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="customer[password]" required autocomplete="new-password">
+      </div>
+      
+      <div style="margin-bottom: 1.5rem;">
+        <label for="password-confirm">Confirmar Senha</label>
+        <input type="password" id="password-confirm" name="customer[password_confirmation]" required autocomplete="new-password">
+      </div>
+      
+      <button type="submit" class="btn-primary w-full">Ativar Conta</button>
+    {% endform %}
+  </div>
+</div>

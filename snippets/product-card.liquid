@@ -1,0 +1,51 @@
+<!-- Product Card Snippet -->
+{% comment %}
+  Usage: {% render 'product-card', product: product %}
+{% endcomment %}
+
+<div class="product-card">
+  <a href="{{ product.url }}">
+    <div class="product-card__image-wrapper">
+      {% if product.featured_image != blank %}
+        <img 
+          src="{{ product.featured_image | image_url: width: 600 }}"
+          alt="{{ product.featured_image.alt | default: product.title }}"
+          class="product-card__image"
+          loading="lazy"
+        >
+      {% else %}
+        {{ 'product-1' | placeholder_svg_tag: 'product-card__image' }}
+      {% endif %}
+
+      {% if product.metafields.custom.featured == true or product.tags contains 'destaque' %}
+        <span class="product-card__badge">Destaque</span>
+      {% endif %}
+
+      {% if product.available %}
+        <div class="product-card__quick-add">
+          <button 
+            type="button" 
+            class="btn-primary w-full"
+            data-quick-add
+            data-variant-id="{{ product.first_available_variant.id }}"
+          >
+            Adicionar ao Carrinho
+          </button>
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="product-card__content">
+      <span class="product-card__sku">{{ product.variants.first.sku | default: 'N/A' }}</span>
+      <h3 class="product-card__title">{{ product.title }}</h3>
+      <div class="product-card__footer">
+        <span class="product-card__price">{{ product.price | money }}</span>
+        {% if product.available %}
+          <span class="product-card__stock">Em estoque</span>
+        {% else %}
+          <span class="product-card__stock product-card__stock--out">Esgotado</span>
+        {% endif %}
+      </div>
+    </div>
+  </a>
+</div>

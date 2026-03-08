@@ -1,0 +1,88 @@
+<!-- Header Section -->
+<header class="header">
+  <div class="warning-stripes"></div>
+  
+  <div class="container">
+    <div class="header__inner">
+      <!-- Logo -->
+      <a href="/" class="header__logo">
+        <i data-lucide="flame"></i>
+        <span class="header__logo-text">{{ shop.name }}</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="header__nav" role="navigation">
+        {% for link in linklists[section.settings.menu].links %}
+          <a href="{{ link.url }}" class="nav-link">{{ link.title }}</a>
+        {% endfor %}
+      </nav>
+
+      <!-- Actions -->
+      <div class="header__actions">
+        <!-- Search -->
+        <div class="header__search">
+          <form action="/search" method="get">
+            <input 
+              type="search" 
+              name="q" 
+              placeholder="Buscar produtos..."
+              aria-label="Buscar"
+            >
+            <button type="submit" aria-label="Buscar">
+              <i data-lucide="search" style="width: 16px; height: 16px;"></i>
+            </button>
+          </form>
+        </div>
+
+        <!-- Cart -->
+        <button class="header__action-btn" data-cart-drawer-trigger aria-label="Carrinho">
+          <i data-lucide="shopping-cart"></i>
+          <span class="cart-count" {% if cart.item_count == 0 %}style="display: none;"{% endif %}>
+            {{ cart.item_count }}
+          </span>
+        </button>
+
+        <!-- Account -->
+        <a href="/account" class="header__action-btn" aria-label="Minha Conta">
+          <i data-lucide="user"></i>
+        </a>
+
+        <!-- Mobile Menu Toggle -->
+        <button class="header__action-btn mobile-menu-toggle" aria-label="Menu" aria-expanded="false">
+          <i data-lucide="menu"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile Menu -->
+    <nav class="mobile-menu" role="navigation">
+      <form action="/search" method="get" style="margin-bottom: 1rem;">
+        <input 
+          type="search" 
+          name="q" 
+          placeholder="Buscar produtos..."
+          style="width: 100%;"
+        >
+      </form>
+      <div class="mobile-menu__nav">
+        {% for link in linklists[section.settings.menu].links %}
+          <a href="{{ link.url }}" class="nav-link">{{ link.title }}</a>
+        {% endfor %}
+      </div>
+    </nav>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

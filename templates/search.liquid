@@ -1,0 +1,32 @@
+<div class="contact-page page-transition">
+  <div class="container" style="padding: 3rem 0 6rem; text-align: center;">
+    <i data-lucide="search" style="width: 4rem; height: 4rem; color: var(--text-secondary); margin-bottom: 1rem;"></i>
+    <h1>Resultados da Busca</h1>
+    
+    {% if search.performed %}
+      {% if search.results_count == 0 %}
+        <p style="color: var(--text-secondary);">Nenhum resultado encontrado para "{{ search.terms }}"</p>
+      {% else %}
+        <p style="color: var(--text-secondary); margin-bottom: 2rem;">{{ search.results_count }} resultados para "{{ search.terms }}"</p>
+        
+        <div class="products-grid" style="text-align: left;">
+          {% for item in search.results %}
+            {% if item.object_type == 'product' %}
+              {% render 'product-card', product: item %}
+            {% else %}
+              <div style="padding: 1rem; background: var(--background-alt); border: 1px solid var(--surface-border);">
+                <h3><a href="{{ item.url }}">{{ item.title }}</a></h3>
+                <p style="color: var(--text-secondary);">{{ item.content | strip_html | truncate: 150 }}</p>
+              </div>
+            {% endif %}
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% else %}
+      <form action="/search" method="get" style="max-width: 400px; margin: 0 auto;">
+        <input type="search" name="q" placeholder="O que você procura?" style="margin-bottom: 1rem;">
+        <button type="submit" class="btn-primary w-full">Buscar</button>
+      </form>
+    {% endif %}
+  </div>
+</div>

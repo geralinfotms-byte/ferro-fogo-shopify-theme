@@ -1,0 +1,131 @@
+<!-- Categories Grid Section (Bento Style) -->
+<section class="categories-section">
+  <div class="container">
+    <h2 class="section-title">{{ section.settings.title | default: 'Nossas Categorias' }}</h2>
+    
+    <div class="bento-grid">
+      {% for block in section.blocks %}
+        <a href="{{ block.settings.link }}" class="category-card" {{ block.shopify_attributes }}>
+          {% if block.settings.image != blank %}
+            <img 
+              src="{{ block.settings.image | image_url: width: 800 }}"
+              alt="{{ block.settings.title }}"
+              class="category-card__image"
+              loading="lazy"
+            >
+          {% else %}
+            {{ 'collection-1' | placeholder_svg_tag: 'category-card__image' }}
+          {% endif %}
+          
+          <div class="category-card__content">
+            {% case block.settings.icon %}
+              {% when 'wrench' %}
+                <i data-lucide="wrench" class="category-card__icon"></i>
+              {% when 'flame' %}
+                <i data-lucide="flame" class="category-card__icon"></i>
+              {% when 'shield' %}
+                <i data-lucide="shield" class="category-card__icon"></i>
+              {% when 'hammer' %}
+                <i data-lucide="hammer" class="category-card__icon"></i>
+              {% else %}
+                <i data-lucide="package" class="category-card__icon"></i>
+            {% endcase %}
+            
+            <h3 class="category-card__title">{{ block.settings.title }}</h3>
+            
+            {% if block.settings.description != blank %}
+              <p class="category-card__description">{{ block.settings.description }}</p>
+            {% endif %}
+          </div>
+        </a>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Grade de Categorias",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Nossas Categorias"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Categoria",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagem"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Título",
+          "default": "Nome da Categoria"
+        },
+        {
+          "type": "text",
+          "id": "description",
+          "label": "Descrição"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        },
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Ícone",
+          "options": [
+            { "value": "wrench", "label": "Chave (Serralheiro)" },
+            { "value": "flame", "label": "Chama (Soldador)" },
+            { "value": "shield", "label": "Escudo (Proteção)" },
+            { "value": "hammer", "label": "Martelo" },
+            { "value": "package", "label": "Pacote (Geral)" }
+          ],
+          "default": "package"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grade de Categorias",
+      "blocks": [
+        {
+          "type": "category",
+          "settings": {
+            "title": "Acessórios para Serralheiros",
+            "description": "Ferramentas e acessórios profissionais",
+            "icon": "wrench"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Acessórios para Soldadores",
+            "description": "Equipamentos de proteção e acessórios",
+            "icon": "flame"
+          }
+        },
+        {
+          "type": "category",
+          "settings": {
+            "title": "Equipamentos Diversos",
+            "description": "Eletrodos, alicates, tochas e mais",
+            "icon": "shield"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

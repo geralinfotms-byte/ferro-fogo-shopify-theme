@@ -1,0 +1,104 @@
+<!-- Hero Section -->
+<section 
+  class="hero"
+  style="background-image: url('{{ section.settings.image | image_url: width: 1920 }}');"
+>
+  <div class="hero__overlay"></div>
+  <div class="hero__glow"></div>
+  
+  <div class="container">
+    <div class="hero__content">
+      {% if section.settings.badge != blank %}
+        <span class="hero__badge">{{ section.settings.badge }}</span>
+      {% endif %}
+      
+      <h1 class="hero__title">
+        {{ section.settings.title | default: 'Equipamentos para' }}<br>
+        <span>{{ section.settings.title_highlight | default: 'Profissionais de Verdade' }}</span>
+      </h1>
+      
+      <p class="hero__description">
+        {{ section.settings.description | default: 'Ferramentas e acessórios de alta performance para serralheiros e soldadores. Construa com qualidade, trabalhe com segurança.' }}
+      </p>
+      
+      <div class="hero__buttons">
+        {% if section.settings.button_text != blank %}
+          <a href="{{ section.settings.button_link }}" class="btn-primary">
+            {{ section.settings.button_text }}
+            <i data-lucide="chevron-right" style="width: 20px; height: 20px;"></i>
+          </a>
+        {% endif %}
+        
+        {% if section.settings.button_secondary_text != blank %}
+          <a href="{{ section.settings.button_secondary_link }}" class="btn-secondary">
+            {{ section.settings.button_secondary_text }}
+          </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero Banner",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagem de Fundo"
+    },
+    {
+      "type": "text",
+      "id": "badge",
+      "label": "Badge",
+      "default": "Qualidade Profissional"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título (Parte 1)",
+      "default": "Equipamentos para"
+    },
+    {
+      "type": "text",
+      "id": "title_highlight",
+      "label": "Título (Parte Destacada)",
+      "default": "Profissionais de Verdade"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descrição",
+      "default": "Ferramentas e acessórios de alta performance para serralheiros e soldadores. Construa com qualidade, trabalhe com segurança."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Texto do Botão Principal",
+      "default": "Ver Produtos"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link do Botão Principal"
+    },
+    {
+      "type": "text",
+      "id": "button_secondary_text",
+      "label": "Texto do Botão Secundário",
+      "default": "Solicitar Orçamento"
+    },
+    {
+      "type": "url",
+      "id": "button_secondary_link",
+      "label": "Link do Botão Secundário"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero Banner"
+    }
+  ]
+}
+{% endschema %}

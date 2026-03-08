@@ -1,0 +1,70 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "badge": "Qualidade Profissional",
+        "title": "Equipamentos para",
+        "title_highlight": "Profissionais de Verdade",
+        "description": "Ferramentas e acessórios de alta performance para serralheiros e soldadores. Construa com qualidade, trabalhe com segurança.",
+        "button_text": "Ver Produtos",
+        "button_link": "/collections/all",
+        "button_secondary_text": "Solicitar Orçamento",
+        "button_secondary_link": "/pages/contato"
+      }
+    },
+    "categories": {
+      "type": "categories-grid",
+      "settings": {
+        "title": "Nossas Categorias"
+      },
+      "blocks": {
+        "category-1": {
+          "type": "category",
+          "settings": {
+            "title": "Acessórios para Serralheiros",
+            "description": "Ferramentas e acessórios profissionais para serralheria",
+            "icon": "wrench",
+            "link": "/collections/serralheiros"
+          }
+        },
+        "category-2": {
+          "type": "category",
+          "settings": {
+            "title": "Acessórios para Soldadores",
+            "description": "Equipamentos de proteção e acessórios para soldagem",
+            "icon": "flame",
+            "link": "/collections/soldadores"
+          }
+        },
+        "category-3": {
+          "type": "category",
+          "settings": {
+            "title": "Equipamentos Diversos",
+            "description": "Eletrodos, alicates, tochas, máscaras e muito mais",
+            "icon": "shield",
+            "link": "/collections/equipamentos"
+          }
+        }
+      },
+      "block_order": ["category-1", "category-2", "category-3"]
+    },
+    "featured-products": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Produtos em Destaque",
+        "products_to_show": 8
+      }
+    },
+    "cta": {
+      "type": "cta-section",
+      "settings": {
+        "title": "Precisa de um Orçamento Especial?",
+        "description": "Entre em contato conosco para orçamentos de grandes quantidades ou produtos específicos. Nossa equipe está pronta para atender sua empresa.",
+        "button_text": "Fale Conosco",
+        "button_link": "/pages/contato"
+      }
+    }
+  },
+  "order": ["hero", "categories", "featured-products", "cta"]
+}

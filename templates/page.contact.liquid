@@ -1,0 +1,121 @@
+<!-- Contact Page Template -->
+<div class="contact-page page-transition">
+  <div class="container">
+    <div class="contact-page__header">
+      <h1>Fale Conosco</h1>
+      <p class="contact-page__description">
+        Entre em contato para orçamentos, dúvidas ou sugestões. Nossa equipe responderá o mais rápido possível.
+      </p>
+    </div>
+
+    <div class="contact-page__grid">
+      <!-- Contact Form -->
+      <div>
+        {% form 'contact' %}
+          {% if form.posted_successfully? %}
+            <div style="background: var(--success); color: white; padding: 1rem; margin-bottom: 1.5rem;">
+              <p>Mensagem enviada com sucesso! Entraremos em contato em breve.</p>
+            </div>
+          {% endif %}
+
+          {% if form.errors %}
+            <div style="background: var(--error); color: white; padding: 1rem; margin-bottom: 1.5rem;">
+              {{ form.errors | default_errors }}
+            </div>
+          {% endif %}
+
+          <div class="contact-form">
+            <div>
+              <label for="contact-name">Nome Completo</label>
+              <input 
+                type="text" 
+                id="contact-name" 
+                name="contact[name]" 
+                required
+                value="{{ form.name }}"
+              >
+            </div>
+
+            <div>
+              <label for="contact-email">Email</label>
+              <input 
+                type="email" 
+                id="contact-email" 
+                name="contact[email]" 
+                required
+                value="{{ form.email }}"
+              >
+            </div>
+
+            <div>
+              <label for="contact-phone">Telefone</label>
+              <input 
+                type="tel" 
+                id="contact-phone" 
+                name="contact[phone]"
+                value="{{ form.phone }}"
+              >
+            </div>
+
+            <div>
+              <label for="contact-product">Interesse em algum produto específico? (Opcional)</label>
+              <input 
+                type="text" 
+                id="contact-product" 
+                name="contact[product_interest]"
+                placeholder="Ex: Máquina de Solda, Esmerilhadeira..."
+              >
+            </div>
+
+            <div>
+              <label for="contact-message">Mensagem</label>
+              <textarea 
+                id="contact-message" 
+                name="contact[body]" 
+                rows="5"
+                required
+                placeholder="Descreva sua necessidade..."
+              >{{ form.body }}</textarea>
+            </div>
+
+            <button type="submit" class="btn-primary w-full">
+              Enviar Mensagem
+            </button>
+          </div>
+        {% endform %}
+      </div>
+
+      <!-- Contact Info -->
+      <div>
+        <div class="contact-info__card">
+          <i data-lucide="phone"></i>
+          <h3>Telefone</h3>
+          <p>(11) 99999-9999</p>
+          <p>(11) 3333-3333</p>
+        </div>
+
+        <div class="contact-info__card">
+          <i data-lucide="mail"></i>
+          <h3>Email</h3>
+          <p>contato@ferroefogo.com.br</p>
+          <p>vendas@ferroefogo.com.br</p>
+        </div>
+
+        <div class="contact-info__card">
+          <i data-lucide="map-pin"></i>
+          <h3>Endereço</h3>
+          <p>Rua das Ferramentas, 123</p>
+          <p>Bairro Industrial - São Paulo/SP</p>
+          <p>CEP: 01234-567</p>
+        </div>
+
+        <div class="contact-info__card">
+          <i data-lucide="clock"></i>
+          <h3>Horário de Funcionamento</h3>
+          <p>Segunda a Sexta: 8h às 18h</p>
+          <p>Sábado: 8h às 12h</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,114 @@
+<!-- Footer Section -->
+<footer class="footer">
+  <div class="container">
+    <div class="warning-stripes" style="margin-bottom: 3rem;"></div>
+    
+    <div class="footer__grid">
+      <!-- Brand Column -->
+      <div>
+        <div class="footer__brand">
+          <i data-lucide="flame"></i>
+          <span class="footer__brand-text">{{ shop.name }}</span>
+        </div>
+        <p class="footer__description">
+          {{ section.settings.description | default: 'Equipamentos profissionais para serralheiros e soldadores. Qualidade e durabilidade para o seu trabalho.' }}
+        </p>
+      </div>
+
+      <!-- Categories Column -->
+      <div>
+        <h3 class="footer__title">Categorias</h3>
+        <ul class="footer__links">
+          {% for link in linklists[section.settings.menu].links %}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Contact Column -->
+      <div>
+        <h3 class="footer__title">Contato</h3>
+        <div class="footer__contact-item">
+          <i data-lucide="phone"></i>
+          <span>{{ section.settings.phone | default: '(11) 99999-9999' }}</span>
+        </div>
+        <div class="footer__contact-item">
+          <i data-lucide="mail"></i>
+          <span>{{ section.settings.email | default: 'contato@loja.com.br' }}</span>
+        </div>
+        <div class="footer__contact-item">
+          <i data-lucide="map-pin"></i>
+          <span>{{ section.settings.address | default: 'Rua das Ferramentas, 123 - São Paulo/SP' }}</span>
+        </div>
+      </div>
+
+      <!-- Hours Column -->
+      <div>
+        <h3 class="footer__title">Horário de Atendimento</h3>
+        <div class="footer__contact-item">
+          <i data-lucide="clock"></i>
+          <span>{{ section.settings.hours | default: 'Seg - Sex: 8h às 18h' }}</span>
+        </div>
+        <p style="color: var(--text-secondary); padding-left: 1.75rem; margin-top: -0.5rem;">
+          {{ section.settings.hours_weekend | default: 'Sábado: 8h às 12h' }}
+        </p>
+      </div>
+    </div>
+
+    <div class="warning-stripes" style="margin-top: 3rem;"></div>
+
+    <div class="footer__bottom">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}. Todos os direitos reservados.</p>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Descrição",
+      "default": "Equipamentos profissionais para serralheiros e soldadores. Qualidade e durabilidade para o seu trabalho."
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu de Categorias",
+      "default": "footer"
+    },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Telefone",
+      "default": "(11) 99999-9999"
+    },
+    {
+      "type": "text",
+      "id": "email",
+      "label": "Email",
+      "default": "contato@loja.com.br"
+    },
+    {
+      "type": "text",
+      "id": "address",
+      "label": "Endereço",
+      "default": "Rua das Ferramentas, 123 - São Paulo/SP"
+    },
+    {
+      "type": "text",
+      "id": "hours",
+      "label": "Horário de Funcionamento",
+      "default": "Seg - Sex: 8h às 18h"
+    },
+    {
+      "type": "text",
+      "id": "hours_weekend",
+      "label": "Horário Fim de Semana",
+      "default": "Sábado: 8h às 12h"
+    }
+  ]
+}
+{% endschema %}

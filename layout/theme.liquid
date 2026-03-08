@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#FF6B00">
+  
+  <title>
+    {{ page_title }}{% unless page_title contains shop.name %} | {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;700;900&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+  
+  {{ content_for_header }}
+
+  {% if template.directory == 'customers' %}
+    <script src="{{ 'customer.js' | asset_url }}" defer></script>
+  {% endif %}
+</head>
+
+<body class="template-{{ template.name | handle }}">
+  <!-- Noise Overlay -->
+  <div class="noise-overlay"></div>
+
+  <!-- Skip to content -->
+  <a class="skip-to-content" href="#MainContent">
+    Pular para o conteúdo
+  </a>
+
+  {% section 'header' %}
+
+  <main id="MainContent" class="main-content" role="main">
+    {{ content_for_layout }}
+  </main>
+
+  {% section 'footer' %}
+
+  <!-- Cart Drawer -->
+  <div id="cart-drawer" class="cart-drawer">
+    <div class="cart-drawer__overlay"></div>
+    <div class="cart-drawer__content">
+      <div class="cart-drawer__header">
+        <h2>Carrinho</h2>
+        <button class="cart-drawer__close" aria-label="Fechar carrinho">
+          <i data-lucide="x"></i>
+        </button>
+      </div>
+      <div class="cart-drawer__body" id="cart-drawer-body">
+        <!-- Cart items loaded via JS -->
+      </div>
+      <div class="cart-drawer__footer">
+        <div class="cart-drawer__total">
+          <span>Total</span>
+          <span id="cart-drawer-total">{{ cart.total_price | money }}</span>
+        </div>
+        <a href="/cart" class="btn-primary w-full">Finalizar Compra</a>
+      </div>
+    </div>
+  </div>
+
+  {{ 'theme.js' | asset_url | script_tag }}
+  
+  <script>
+    lucide.createIcons();
+  </script>
+</body>
+</html>

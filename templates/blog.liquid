@@ -1,0 +1,18 @@
+<div class="contact-page page-transition">
+  <div class="container" style="padding: 3rem 0 6rem;">
+    <h1>{{ blog.title }}</h1>
+    
+    {% for article in blog.articles %}
+      <article style="margin-bottom: 2rem; padding: 1.5rem; background: var(--background-alt); border: 1px solid var(--surface-border);">
+        <h2><a href="{{ article.url }}">{{ article.title }}</a></h2>
+        <p style="color: var(--text-secondary); font-size: 0.875rem;">{{ article.published_at | date: "%d/%m/%Y" }}</p>
+        {{ article.excerpt_or_content | strip_html | truncate: 200 }}
+        <a href="{{ article.url }}" style="color: var(--primary);">Ler mais</a>
+      </article>
+    {% endfor %}
+    
+    {% if blog.articles.size == 0 %}
+      <p>Nenhum artigo encontrado.</p>
+    {% endif %}
+  </div>
+</div>

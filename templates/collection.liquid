@@ -1,0 +1,49 @@
+<!-- Collection Template -->
+<div class="collection-page page-transition">
+  <div class="container">
+    <!-- Header -->
+    <div class="collection-page__header">
+      <h1>{{ collection.title }}</h1>
+      {% if collection.description != blank %}
+        <p class="collection-page__description">{{ collection.description }}</p>
+      {% endif %}
+    </div>
+
+    <!-- Filters -->
+    <div class="collection-page__filters">
+      <a href="/collections/all" class="filter-btn {% if collection.handle == 'all' %}active{% endif %}">
+        Todos
+      </a>
+      {% for collection_item in collections %}
+        {% if collection_item.products.size > 0 and collection_item.handle != 'all' %}
+          <a href="{{ collection_item.url }}" class="filter-btn {% if collection.handle == collection_item.handle %}active{% endif %}">
+            {{ collection_item.title }}
+          </a>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <!-- Products Grid -->
+    {% if collection.products.size > 0 %}
+      <div class="products-grid">
+        {% for product in collection.products %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      </div>
+
+      <!-- Pagination -->
+      {% if paginate.pages > 1 %}
+        <div style="text-align: center; margin-top: 3rem;">
+          {{ paginate | default_pagination }}
+        </div>
+      {% endif %}
+    {% else %}
+      <div class="cart-page__empty">
+        <i data-lucide="package"></i>
+        <h3>Nenhum produto encontrado</h3>
+        <p>Tente uma busca diferente ou navegue pelas categorias.</p>
+        <a href="/collections/all" class="btn-primary">Ver Todos os Produtos</a>
+      </div>
+    {% endif %}
+  </div>
+</div>

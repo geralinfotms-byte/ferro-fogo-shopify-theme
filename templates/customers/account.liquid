@@ -1,0 +1,74 @@
+<div class="contact-page page-transition">
+  <div class="container" style="padding: 3rem 0 6rem; max-width: 500px; margin: 0 auto;">
+    
+    {% if customer %}
+      <!-- Logged In View -->
+      <h1>Minha Conta</h1>
+      <p style="color: var(--text-secondary); margin-bottom: 2rem;">Olá, {{ customer.first_name }}!</p>
+      
+      <div style="background: var(--background-alt); padding: 1.5rem; border: 1px solid var(--surface-border); margin-bottom: 1rem;">
+        <h3>Informações da Conta</h3>
+        <p><strong>Nome:</strong> {{ customer.name }}</p>
+        <p><strong>Email:</strong> {{ customer.email }}</p>
+      </div>
+      
+      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+        <a href="/account/addresses" class="btn-secondary" style="flex: 1;">Meus Endereços</a>
+        <a href="/account/logout" class="btn-secondary" style="flex: 1; color: var(--error); border-color: var(--error);">Sair</a>
+      </div>
+      
+      <!-- Order History -->
+      <h2 style="margin-top: 3rem;">Histórico de Pedidos</h2>
+      {% if customer.orders.size > 0 %}
+        {% for order in customer.orders %}
+          <div style="background: var(--background-alt); padding: 1rem; border: 1px solid var(--surface-border); margin-bottom: 1rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <div>
+                <p style="font-weight: bold;">Pedido {{ order.name }}</p>
+                <p style="color: var(--text-secondary); font-size: 0.875rem;">{{ order.created_at | date: "%d/%m/%Y" }}</p>
+              </div>
+              <div style="text-align: right;">
+                <p style="color: var(--primary); font-weight: bold;">{{ order.total_price | money }}</p>
+                <p style="font-size: 0.75rem; padding: 0.25rem 0.5rem; background: var(--success); color: white; display: inline-block;">
+                  {{ order.fulfillment_status_label }}
+                </p>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <p style="color: var(--text-secondary);">Você ainda não fez nenhum pedido.</p>
+        <a href="/collections/all" class="btn-primary" style="margin-top: 1rem;">Ver Produtos</a>
+      {% endif %}
+      
+    {% else %}
+      <!-- Login Form -->
+      <h1>Entrar na Conta</h1>
+      
+      {% form 'customer_login' %}
+        {{ form.errors | default_errors }}
+        
+        <div style="margin-bottom: 1.5rem;">
+          <label for="customer-email">Email</label>
+          <input type="email" id="customer-email" name="customer[email]" required autocomplete="email">
+        </div>
+        
+        <div style="margin-bottom: 1.5rem;">
+          <label for="customer-password">Senha</label>
+          <input type="password" id="customer-password" name="customer[password]" required autocomplete="current-password">
+        </div>
+        
+        <button type="submit" class="btn-primary w-full">Entrar</button>
+        
+        <p style="text-align: center; margin-top: 1.5rem;">
+          <a href="/account/recover" style="color: var(--primary);">Esqueceu a senha?</a>
+        </p>
+        
+        <p style="text-align: center; margin-top: 1rem; color: var(--text-secondary);">
+          Não tem conta? <a href="/account/register" style="color: var(--primary);">Criar agora</a>
+        </p>
+      {% endform %}
+    {% endif %}
+    
+  </div>
+</div>

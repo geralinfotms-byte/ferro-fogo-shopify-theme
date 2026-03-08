@@ -1,0 +1,108 @@
+<div class="contact-page page-transition">
+  <div class="container" style="padding: 3rem 0 6rem; max-width: 700px; margin: 0 auto;">
+    <h1>Meus Endereços</h1>
+    
+    <a href="/account" style="color: var(--primary); display: inline-block; margin-bottom: 2rem;">← Voltar para minha conta</a>
+    
+    <!-- Add New Address Form -->
+    <div style="background: var(--background-alt); padding: 1.5rem; border: 1px solid var(--surface-border); margin-bottom: 2rem;">
+      <h3>Adicionar Novo Endereço</h3>
+      
+      {% form 'customer_address', customer.new_address %}
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label for="address-first-name">Nome</label>
+            <input type="text" id="address-first-name" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name">
+          </div>
+          <div>
+            <label for="address-last-name">Sobrenome</label>
+            <input type="text" id="address-last-name" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name">
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 1rem;">
+          <label for="address-company">Empresa (Opcional)</label>
+          <input type="text" id="address-company" name="address[company]" value="{{ form.company }}" autocomplete="organization">
+        </div>
+        
+        <div style="margin-bottom: 1rem;">
+          <label for="address-address1">Endereço</label>
+          <input type="text" id="address-address1" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1">
+        </div>
+        
+        <div style="margin-bottom: 1rem;">
+          <label for="address-address2">Complemento (Opcional)</label>
+          <input type="text" id="address-address2" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2">
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label for="address-city">Cidade</label>
+            <input type="text" id="address-city" name="address[city]" value="{{ form.city }}" autocomplete="address-level2">
+          </div>
+          <div>
+            <label for="address-province">Estado</label>
+            <input type="text" id="address-province" name="address[province]" value="{{ form.province }}" autocomplete="address-level1">
+          </div>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label for="address-zip">CEP</label>
+            <input type="text" id="address-zip" name="address[zip]" value="{{ form.zip }}" autocomplete="postal-code">
+          </div>
+          <div>
+            <label for="address-country">País</label>
+            <select id="address-country" name="address[country]" autocomplete="country">
+              {{ all_country_option_tags }}
+            </select>
+          </div>
+        </div>
+        
+        <div style="margin-bottom: 1rem;">
+          <label for="address-phone">Telefone</label>
+          <input type="tel" id="address-phone" name="address[phone]" value="{{ form.phone }}" autocomplete="tel">
+        </div>
+        
+        {{ form.set_as_default_checkbox }}
+        <label for="address_default_address_new" style="display: inline; font-size: 0.875rem; text-transform: none; font-weight: normal;">
+          Definir como endereço padrão
+        </label>
+        
+        <button type="submit" class="btn-primary" style="margin-top: 1rem;">Adicionar Endereço</button>
+      {% endform %}
+    </div>
+    
+    <!-- Existing Addresses -->
+    <h2>Endereços Salvos</h2>
+    {% for address in customer.addresses %}
+      <div style="background: var(--background-alt); padding: 1.5rem; border: 1px solid var(--surface-border); margin-bottom: 1rem;">
+        {% if address == customer.default_address %}
+          <span style="background: var(--primary); color: white; font-size: 0.75rem; padding: 0.25rem 0.5rem; margin-bottom: 0.5rem; display: inline-block;">
+            Padrão
+          </span>
+        {% endif %}
+        
+        <p><strong>{{ address.first_name }} {{ address.last_name }}</strong></p>
+        {% if address.company != blank %}<p>{{ address.company }}</p>{% endif %}
+        <p>{{ address.address1 }}</p>
+        {% if address.address2 != blank %}<p>{{ address.address2 }}</p>{% endif %}
+        <p>{{ address.city }}, {{ address.province }} {{ address.zip }}</p>
+        <p>{{ address.country }}</p>
+        {% if address.phone != blank %}<p>{{ address.phone }}</p>{% endif %}
+        
+        <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+          <button type="button" class="btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem;">Editar</button>
+          {% form 'customer_address', address %}
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit" class="btn-secondary" style="font-size: 0.875rem; padding: 0.5rem 1rem; color: var(--error); border-color: var(--error);">Excluir</button>
+          {% endform %}
+        </div>
+      </div>
+    {% endfor %}
+    
+    {% if customer.addresses.size == 0 %}
+      <p style="color: var(--text-secondary);">Você ainda não tem endereços salvos.</p>
+    {% endif %}
+  </div>
+</div>

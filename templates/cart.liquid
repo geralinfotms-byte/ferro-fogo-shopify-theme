@@ -1,0 +1,102 @@
+<!-- Cart Template -->
+<div class="cart-page page-transition">
+  <div class="container">
+    <h1>Carrinho de Compras</h1>
+
+    {% if cart.item_count > 0 %}
+      <div class="cart-page__grid">
+        <!-- Cart Items -->
+        <div>
+          {% for item in cart.items %}
+            <div class="cart-item">
+              <a href="{{ item.product.url }}">
+                {% if item.image != blank %}
+                  <img 
+                    src="{{ item.image | image_url: width: 200 }}"
+                    alt="{{ item.title }}"
+                    class="cart-item__image"
+                  >
+                {% else %}
+                  {{ 'product-1' | placeholder_svg_tag: 'cart-item__image' }}
+                {% endif %}
+              </a>
+              
+              <div class="cart-item__content">
+                <a href="{{ item.product.url }}">
+                  <h3 class="cart-item__title">{{ item.product.title }}</h3>
+                </a>
+                <span class="cart-item__sku">{{ item.sku | default: 'N/A' }}</span>
+                
+                <div class="cart-item__footer">
+                  <div class="quantity-selector" data-cart>
+                    <button 
+                      type="button" 
+                      class="quantity-selector__btn"
+                      data-change-qty
+                      data-line="{{ item.key }}"
+                      data-qty="{{ item.quantity | minus: 1 }}"
+                    >
+                      <i data-lucide="minus" style="width: 16px; height: 16px;"></i>
+                    </button>
+                    <input type="text" value="{{ item.quantity }}" class="quantity-selector__input" readonly>
+                    <button 
+                      type="button" 
+                      class="quantity-selector__btn"
+                      data-change-qty
+                      data-line="{{ item.key }}"
+                      data-qty="{{ item.quantity | plus: 1 }}"
+                    >
+                      <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+                    </button>
+                  </div>
+                  <span class="cart-item__price">{{ item.line_price | money }}</span>
+                </div>
+              </div>
+              
+              <button 
+                class="cart-item__remove"
+                data-remove-item
+                data-line="{{ item.key }}"
+                aria-label="Remover item"
+              >
+                <i data-lucide="trash-2" style="width: 20px; height: 20px;"></i>
+              </button>
+            </div>
+          {% endfor %}
+        </div>
+
+        <!-- Cart Summary -->
+        <div>
+          <div class="cart-summary">
+            <h3 class="cart-summary__title">Resumo do Pedido</h3>
+            
+            <div class="cart-summary__row">
+              <span>Subtotal ({{ cart.item_count }} itens)</span>
+              <span>{{ cart.total_price | money }}</span>
+            </div>
+            <div class="cart-summary__row">
+              <span>Frete</span>
+              <span>A calcular</span>
+            </div>
+            
+            <div class="cart-summary__total">
+              <span>Total</span>
+              <span>{{ cart.total_price | money }}</span>
+            </div>
+            
+            <a href="/checkout" class="btn-primary w-full">
+              Finalizar Compra
+            </a>
+          </div>
+        </div>
+      </div>
+    {% else %}
+      <div class="cart-page__empty">
+        <i data-lucide="shopping-cart"></i>
+        <h3>Seu carrinho está vazio</h3>
+        <p>Adicione produtos para continuar comprando.</p>
+        <a href="/collections/all" class="btn-primary">Ver Produtos</a>
+      </div>
+    {% endif %}
+  </div>
+</div>

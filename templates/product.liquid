@@ -1,0 +1,91 @@
+<!-- Product Template -->
+<div class="product-page page-transition">
+  <div class="container">
+    <div class="product-page__grid">
+      <!-- Product Gallery -->
+      <div class="product-page__gallery">
+        {% if product.featured_image != blank %}
+          <img 
+            src="{{ product.featured_image | image_url: width: 1000 }}"
+            alt="{{ product.featured_image.alt | default: product.title }}"
+            class="product-page__image"
+          >
+        {% else %}
+          {{ 'product-1' | placeholder_svg_tag: 'product-page__image' }}
+        {% endif %}
+
+        {% if product.metafields.custom.featured == true or product.tags contains 'destaque' %}
+          <span class="product-page__badge">Destaque</span>
+        {% endif %}
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-page__info">
+        <span class="product-page__sku">{{ product.selected_or_first_available_variant.sku | default: 'N/A' }}</span>
+        <h1 class="product-page__title">{{ product.title }}</h1>
+        
+        <div class="product-page__description">
+          {{ product.description }}
+        </div>
+
+        <div class="product-page__price-wrapper">
+          <span class="product-page__price">{{ product.price | money }}</span>
+          {% if product.available %}
+            <span class="product-page__stock">
+              Em estoque ({{ product.selected_or_first_available_variant.inventory_quantity }} unidades)
+            </span>
+          {% else %}
+            <span class="product-page__stock product-page__stock--out">Esgotado</span>
+          {% endif %}
+        </div>
+
+        {% if product.available %}
+          <form action="/cart/add" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            
+            <div class="product-page__actions">
+              <div class="quantity-selector">
+                <button type="button" class="quantity-selector__btn" data-decrease>
+                  <i data-lucide="minus" style="width: 16px; height: 16px;"></i>
+                </button>
+                <input 
+                  type="number" 
+                  name="quantity" 
+                  value="1" 
+                  min="1"
+                  max="{{ product.selected_or_first_available_variant.inventory_quantity }}"
+                  class="quantity-selector__input"
+                  data-max="{{ product.selected_or_first_available_variant.inventory_quantity }}"
+                >
+                <button type="button" class="quantity-selector__btn" data-increase>
+                  <i data-lucide="plus" style="width: 16px; height: 16px;"></i>
+                </button>
+              </div>
+              
+              <button type="submit" class="btn-primary" style="flex: 1;">
+                Adicionar ao Carrinho
+              </button>
+            </div>
+          </form>
+        {% endif %}
+
+        <!-- Product Specs/Metafields -->
+        {% if product.metafields.specs != blank %}
+          <div class="product-page__specs">
+            <h3>Especificações Técnicas</h3>
+            <table class="specs-table">
+              {% for field in product.metafields.specs %}
+                <tr>
+                  <td>{{ field | first | replace: '_', ' ' }}</td>
+                  <td>{{ field | last }}</td>
+                </tr>
+              {% endfor %}
+            </table>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+{% section 'featured-collection' %}

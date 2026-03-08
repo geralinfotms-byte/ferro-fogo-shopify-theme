@@ -1,0 +1,36 @@
+<div class="contact-page page-transition">
+  <div class="container" style="padding: 3rem 0 6rem; max-width: 500px; margin: 0 auto;">
+    <h1>Criar Conta</h1>
+    
+    {% form 'create_customer' %}
+      {{ form.errors | default_errors }}
+      
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+        <div>
+          <label for="first-name">Nome</label>
+          <input type="text" id="first-name" name="customer[first_name]" required autocomplete="given-name">
+        </div>
+        <div>
+          <label for="last-name">Sobrenome</label>
+          <input type="text" id="last-name" name="customer[last_name]" required autocomplete="family-name">
+        </div>
+      </div>
+      
+      <div style="margin-bottom: 1.5rem;">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="customer[email]" required autocomplete="email">
+      </div>
+      
+      <div style="margin-bottom: 1.5rem;">
+        <label for="password">Senha</label>
+        <input type="password" id="password" name="customer[password]" required autocomplete="new-password">
+      </div>
+      
+      <button type="submit" class="btn-primary w-full">Criar Conta</button>
+      
+      <p style="text-align: center; margin-top: 1.5rem; color: var(--text-secondary);">
+        Já tem conta? <a href="/account/login" style="color: var(--primary);">Entrar</a>
+      </p>
+    {% endform %}
+  </div>
+</div>

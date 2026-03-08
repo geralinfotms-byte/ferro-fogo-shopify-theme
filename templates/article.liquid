@@ -1,0 +1,18 @@
+<div class="contact-page page-transition">
+  <div class="container" style="padding: 3rem 0 6rem;">
+    <article>
+      <h1>{{ article.title }}</h1>
+      <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 2rem;">
+        {{ article.published_at | date: "%d/%m/%Y" }} | {{ article.author }}
+      </p>
+      
+      <div style="line-height: 1.8;">
+        {{ article.content }}
+      </div>
+      
+      <a href="{{ blog.url }}" style="color: var(--primary); margin-top: 2rem; display: inline-block;">
+        ← Voltar para {{ blog.title }}
+      </a>
+    </article>
+  </div>
+</div>

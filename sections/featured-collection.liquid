@@ -1,0 +1,72 @@
+<!-- Featured Collection Section -->
+<section class="products-section">
+  <div class="container">
+    <div class="products-section__header">
+      <h2 class="section-title">{{ section.settings.title | default: 'Produtos em Destaque' }}</h2>
+      {% if section.settings.collection != blank %}
+        <a href="{{ section.settings.collection.url }}" class="products-section__link">
+          Ver Todos
+          <i data-lucide="chevron-right" style="width: 16px; height: 16px;"></i>
+        </a>
+      {% endif %}
+    </div>
+
+    <div class="products-grid">
+      {% assign collection = section.settings.collection %}
+      {% if collection != blank %}
+        {% for product in collection.products limit: section.settings.products_to_show %}
+          {% render 'product-card', product: product %}
+        {% endfor %}
+      {% else %}
+        {% for i in (1..4) %}
+          <div class="product-card">
+            <div class="product-card__image-wrapper">
+              {{ 'product-1' | placeholder_svg_tag: 'product-card__image' }}
+            </div>
+            <div class="product-card__content">
+              <span class="product-card__sku">SKU-000{{ i }}</span>
+              <h3 class="product-card__title">Produto de Exemplo {{ i }}</h3>
+              <div class="product-card__footer">
+                <span class="product-card__price">R$ 99,90</span>
+                <span class="product-card__stock">Em estoque</span>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Coleção em Destaque",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Produtos em Destaque"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Coleção"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 8,
+      "label": "Quantidade de Produtos"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Coleção em Destaque"
+    }
+  ]
+}
+{% endschema %}
