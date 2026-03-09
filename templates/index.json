@@ -31,7 +31,7 @@
             "image": "shopify://shop_images/acessorios-para-serralheiro.png",
             "title": "Acessórios para Serralheiros",
             "description": "Ferramentas e acessórios profissionais para serralheria",
-            "link": "/collections/serralheiros",
+            "link": "shopify://collections/acessorios-para-serralheiro",
             "icon": "wrench"
           }
         },
@@ -41,7 +41,7 @@
             "image": "shopify://shop_images/soldadores.png",
             "title": "Acessórios para Soldadores",
             "description": "Equipamentos de proteção e acessórios para soldagem",
-            "link": "/collections/soldadores",
+            "link": "shopify://collections/acessorios-para-soldador",
             "icon": "flame"
           }
         },
@@ -51,7 +51,7 @@
             "image": "shopify://shop_images/eletrodos-alicates-tochas-m-scaras-e-muito-mais.png",
             "title": "Equipamentos Diversos",
             "description": "Eletrodos, alicates, tochas, máscaras e muito mais",
-            "link": "/collections/equipamentos",
+            "link": "shopify://collections/equipamentod-diversos",
             "icon": "shield"
           }
         }
@@ -70,7 +70,7 @@
       "settings": {
         "title": "Produtos em Destaque",
         "collection": "",
-        "products_to_show": 6
+        "products_to_show": 12
       }
     },
     "cta": {
