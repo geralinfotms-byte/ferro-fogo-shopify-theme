@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -15,45 +24,53 @@
     },
     "categories": {
       "type": "categories-grid",
-      "settings": {
-        "title": "Nossas Categorias"
-      },
       "blocks": {
         "category-1": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/acessorios-para-serralheiro.png",
             "title": "Acessórios para Serralheiros",
             "description": "Ferramentas e acessórios profissionais para serralheria",
-            "icon": "wrench",
-            "link": "/collections/serralheiros"
+            "link": "/collections/serralheiros",
+            "icon": "wrench"
           }
         },
         "category-2": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/soldadores.png",
             "title": "Acessórios para Soldadores",
             "description": "Equipamentos de proteção e acessórios para soldagem",
-            "icon": "flame",
-            "link": "/collections/soldadores"
+            "link": "/collections/soldadores",
+            "icon": "flame"
           }
         },
         "category-3": {
           "type": "category",
           "settings": {
+            "image": "shopify://shop_images/eletrodos-alicates-tochas-m-scaras-e-muito-mais.png",
             "title": "Equipamentos Diversos",
             "description": "Eletrodos, alicates, tochas, máscaras e muito mais",
-            "icon": "shield",
-            "link": "/collections/equipamentos"
+            "link": "/collections/equipamentos",
+            "icon": "shield"
           }
         }
       },
-      "block_order": ["category-1", "category-2", "category-3"]
+      "block_order": [
+        "category-1",
+        "category-2",
+        "category-3"
+      ],
+      "settings": {
+        "title": "Nossas Categorias"
+      }
     },
     "featured-products": {
       "type": "featured-collection",
       "settings": {
         "title": "Produtos em Destaque",
-        "products_to_show": 8
+        "collection": "",
+        "products_to_show": 6
       }
     },
     "cta": {
@@ -66,5 +83,10 @@
       }
     }
   },
-  "order": ["hero", "categories", "featured-products", "cta"]
+  "order": [
+    "hero",
+    "categories",
+    "featured-products",
+    "cta"
+  ]
 }
