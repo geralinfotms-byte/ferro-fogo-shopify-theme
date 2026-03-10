@@ -68,8 +68,16 @@
     "featured-products": {
       "type": "featured-collection",
       "settings": {
+        "title": "",
+        "collection": "acessorios-para-soldador",
+        "products_to_show": 4
+      }
+    },
+    "featured_collection_LtW6cB": {
+      "type": "featured-collection",
+      "settings": {
         "title": "Produtos em Destaque",
-        "collection": "",
+        "collection": "acessorios-para-serralheiro",
         "products_to_show": 12
       }
     },
@@ -87,6 +95,7 @@
     "hero",
     "categories",
     "featured-products",
+    "featured_collection_LtW6cB",
     "cta"
   ]
 }
