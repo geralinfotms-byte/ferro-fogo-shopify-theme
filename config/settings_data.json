@@ -52,6 +52,16 @@
         "type": "shopify://apps/ecomposer-landing-page-builder/blocks/app-embed/a0fc26e1-7741-4773-8b27-39389b4fb4a0",
         "disabled": false,
         "settings": {}
+      },
+      "14660309866608708618": {
+        "type": "shopify://apps/spd-split-payment/blocks/app-embed/35a708d6-4cb9-406a-9fdb-e05a89b032c6",
+        "disabled": false,
+        "settings": {}
+      },
+      "16278478101612877664": {
+        "type": "shopify://apps/pagefly-page-builder/blocks/app-embed/83e179f7-59a0-4589-8c66-c0dddf959200",
+        "disabled": false,
+        "settings": {}
       }
     }
   }
