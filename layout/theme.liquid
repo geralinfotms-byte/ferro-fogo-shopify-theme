@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ request.locale.iso_code }}">
 <head>
+ {%- render 'ecom_header' -%}
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#FF6B00">
@@ -75,5 +76,5 @@
   <script>
     lucide.createIcons();
   </script>
-</body>
+{%- render "ecom_footer"-%}</body>
 </html>
