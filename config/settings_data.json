@@ -24,10 +24,10 @@
         "type": "footer",
         "settings": {
           "description": "Equipamentos profissionais para serralheiros e soldadores. Qualidade e durabilidade para o seu trabalho.",
-          "menu": "footer",
-          "phone": "(11) 99999-9999",
-          "email": "contato@loja.com.br",
-          "address": "Rua das Ferramentas, 123 - São Paulo/SP",
+          "menu": "main-menu",
+          "phone": "931923084",
+          "email": "suportergpopular@gmail.com",
+          "address": ".",
           "hours": "Seg - Sex: 8h às 18h",
           "hours_weekend": "Sábado: 8h às 12h"
         }

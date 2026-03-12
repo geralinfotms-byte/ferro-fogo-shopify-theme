@@ -80,22 +80,12 @@
         "collection": "acessorios-para-serralheiro",
         "products_to_show": 12
       }
-    },
-    "cta": {
-      "type": "cta-section",
-      "settings": {
-        "title": "Precisa de um Orçamento Especial?",
-        "description": "Entre em contato conosco para orçamentos de grandes quantidades ou produtos específicos. Nossa equipe está pronta para atender sua empresa.",
-        "button_text": "Fale Conosco",
-        "button_link": "/pages/contato"
-      }
     }
   },
   "order": [
     "hero",
     "categories",
     "featured-products",
-    "featured_collection_LtW6cB",
-    "cta"
+    "featured_collection_LtW6cB"
   ]
 }
