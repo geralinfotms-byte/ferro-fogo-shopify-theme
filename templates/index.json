@@ -19,7 +19,7 @@
         "button_text": "Ver Produtos",
         "button_link": "/collections/all",
         "button_secondary_text": "Solicitar Orçamento",
-        "button_secondary_link": "/pages/contato"
+        "button_secondary_link": "shopify://pages/contact"
       }
     },
     "categories": {
