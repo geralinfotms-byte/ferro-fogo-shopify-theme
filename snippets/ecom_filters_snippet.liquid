@@ -1,0 +1,400 @@
+{% assign EComBuilderMode = true %}{% assign Ecom_Collection_Filter = collection.filters %}{% assign Ecom_Search_Filter = search.filters %}<!--EComposer-custom-liquid-filters-rb9betpxyq-->
+                        {% if template contains '.' %}
+                            <input type="hidden" name="view" value="{{template | split: '.' | last }}" />
+                        {% endif %}
+                        {% if request.page_type == 'search' %}
+                            {% assign results = search %}
+                        {% else %}
+                            {% assign results = collection %}
+                        {% endif %}
+                        {%- assign sort_by = results.sort_by | default: results.default_sort_by -%}
+                        {% assign color_option_name = 'Color' | handleize %}
+                        {% liquid
+                            assign colors = shop.metafields.ecomposer.colors
+                        %}
+                        {% capture icon_caret%}
+                            <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+                                <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                            </svg>
+                        {% endcapture%}
+                        {% capture close_icon %}
+                            <span class="ecom-colletion-filters--close-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false" role="presentation" fill="currentColor" viewBox="0 0 18 17">
+                                    <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor"/>
+                                </svg>
+                            </span>
+                        {% endcapture %}
+                        
+                        <div class="ecom-container-filter-list--wrapper " >
+                            <div class="ecom-container-filter-list-wrapper">
+                                
+                                <div class="ecom-container-filter-list" >
+                                    <div class="ecom-shopify_menu" data-show-all="false">
+                    <div
+                                 open 
+                                class=" ecom-collection__filters-group-dropdown ecom-collection__filters-group ecom-collection__filters-group-lists" data-attrs-max="5">
+                        <summary class="ecom-collection__filters-group-summary">
+                            <div class="ecom-collection__filters-group-header">
+                                <span class="ecom-collection__filters-group-summary--title">Collections</span>
+                                
+                            </div>
+                        </summary>
+                        <div class="ecom-collection__filters-group--display">
+                            {%- capture link_handle -%}shop-furniture{%- endcapture -%}
+                            {%- unless link_handle == empty -%}
+                                {%- assign menu = linklists[link_handle] -%}
+                                <ul class="ecom-shopify__menu-list">
+                                    {% if menu and menu.links.size %}
+                                        {% for link in menu.links %}
+                                            {% assign child_link = link.links %}
+                                            <li class="ecom-shopify__menu-item ecom-shopify__menu-item-type--{{link.type}} {% if child_link.size > 0 %}ecom-shopify__menu-item--has-children{% endif %} {% if link.active or link.child_active %} ecom-shopify__menu-item--active ecom-text-active {% endif %}">
+                                                <div class="ecom-menu_item ecom-items {% if link.active or link.child_active %} ecom-item-active {% endif %}">
+                                                    <a class="ecom-menu_title ecom-items--text" href="{{link.url}}" title="{{link.title | escape }}">
+                                                        {{link.title}}
+                                                    </a>
+                                                    {%- if link.levels > 0 -%}
+                                                        <div class="ecom-menu_icon">
+                                                            <div class="ecom-items--icon ecom-menu_icon--normal">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M432 256C432 269.3 421.3 280 408 280h-160v160c0 13.25-10.75 24.01-24 24.01S200 453.3 200 440v-160h-160c-13.25 0-24-10.74-24-23.99C16 242.8 26.75 232 40 232h160v-160c0-13.25 10.75-23.99 24-23.99S248 58.75 248 72v160h160C421.3 232 432 242.8 432 256z"></path></svg>
+                                                            </div>
+                                                            <div class="ecom-items--icon ecom-menu_icon--active">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M432 256C432 269.3 421.3 280 408 280H40c-13.25 0-24-10.74-24-23.99C16 242.8 26.75 232 40 232h368C421.3 232 432 242.8 432 256z"></path></svg>
+                                                            </div>
+                                                        </div>
+                                                    {%- endif -%}
+                                                </div>
+                                                {% if child_link.size > 0 %}
+                                                    <ul class="ecom-shopify__menu-sub-menu" data-menu-size="{{child_link.size}}" data-menu-level="{{child_link.level}}"  style="{% if link.child_active %} max-height: 100%; {% endif %}">
+                                                        {% for child in child_link %}
+                                                            {% assign grand_link = child.links %}
+                                                            <li class="ecom-shopify__menu-child-link-item ecom-shopify__menu-child-link-item-type--{{child.type}} {% if grand_link.size > 0 %}ecom-shopify__menu-child-link-item--has-children{% endif %} {% if child.active or child.child_active%} ecom-shopify__menu-child-link-item--active ecom-text-active{% endif %}" >
+                                                                <div class="ecom-menu_item ecom-items">
+                                                                    <a class="ecom-menu_title ecom-items--text" href="{{child.url}}" title="{{child.title | escape }}">
+                                                                        {{child.title}}
+                                                                    </a>
+                                                                    {%- if child.levels > 0 -%}
+                                                                        <div class="ecom-menu_icon">
+                                                                            <div class="ecom-items--icon ecom-menu_icon--normal">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M432 256C432 269.3 421.3 280 408 280h-160v160c0 13.25-10.75 24.01-24 24.01S200 453.3 200 440v-160h-160c-13.25 0-24-10.74-24-23.99C16 242.8 26.75 232 40 232h160v-160c0-13.25 10.75-23.99 24-23.99S248 58.75 248 72v160h160C421.3 232 432 242.8 432 256z"></path></svg>
+                                                                            </div>
+                                                                            <div class="ecom-items--icon ecom-menu_icon--active">
+                                                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" fill="currentColor"><path d="M432 256C432 269.3 421.3 280 408 280H40c-13.25 0-24-10.74-24-23.99C16 242.8 26.75 232 40 232h368C421.3 232 432 242.8 432 256z"></path></svg>
+                                                                            </div>
+                                                                        </div>
+                                                                    {%- endif -%}
+                                                                </div>
+                                                                {% if grand_link.size > 0 %}
+                                                                    <ul class="ecom-shopify__menu-sub-menu" data-menu-size="{{grand_link.size}}" data-menu-level="{{child_link.level}}">
+                                                                        {% for grand in grand_link %}
+                                                                            <li class="ecom-shopify__menu-grand-link-item ecom-menu_item ecom-items ecom-shopify__menu-grand-link-item-type--{{grand.type}} {% if grand.active or grand.child_active %}ecom-shopify__menu-grand-link-item--active ecom-text-active{% endif %}">
+                                                                                <a class="ecom-menu_title ecom-items--text" href="{{grand.url}}" title="{{grand.title | escape }}">
+                                                                                    {{grand.title}}
+                                                                                </a>
+                                                                            </li>
+                                                                        {% endfor %}
+                                                                    </ul>
+                                                                {%- endif -%}
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ul>
+                                                {% endif %}
+                                            </li>
+                                        {% endfor %}
+                                    {% endif %}
+                                </ul>
+                            {% else %}
+                                <p>Select a menu to show</p>
+                            {%- endunless -%}
+                        </div>
+                    </div>
+                </div>
+                                {%- for filter in results.filters -%}
+                                    {%- assign total_active_values = total_active_values | plus: filter.active_values.size -%}
+                                    {% assign presentation = filter.presentation | default: "text" %}
+                                    {% case filter.type %}
+                                    {% when 'list' %}
+                                        {% assign size = filter.values | size %}
+                                        {% assign settings_size = undefined %}
+                                        {%- if size > 0 -%}
+                                        <div
+                                        data-name="{{filter.param_name}}"
+                                         open 
+                                        class="ecom-js-filter ecom-collection__filters-group-dropdown ecom-collection__filters-group ecom-collection__filters-group-lists ecom-d-none" data-index="{{ forloop.index }}" data-filter-id="ecom-rb9betpxyq" data-attrs-max="5">
+
+                                            <summary class="ecom-collection__filters-group-summary">
+                                                <div class="ecom-collection__filters-group-header">
+                                                    <span class="ecom-collection__filters-group-summary--title">{{ filter.label | escape }}</span>
+                                                    
+                                                </div>
+                                            </summary>
+                                            <div class="ecom-collection__filters-group--display ">
+                                                
+                                                    <div class="ecom-collection__filters-group--header">
+                                                        <span class="ecom-collection__filters-group--selected no-js-hidden">
+                                                            {% assign count = filter.active_values.size %}
+                                                            {% if count == 1%}
+                                                                {{ count}} selected
+                                                            {% else %}
+                                                                {{ count}} selected
+                                                            {% endif %}
+                                                        </span>
+                                                        <a href="{{ filter.url_to_remove }}" class="ecom-collection__filters-group-reset-filter" >Reset</a>
+                                                    </div>
+
+                                                {% assign check_is_filter_color = false %}
+                                                
+                                                        {% assign current_option_name = filter.param_name  | split: '.' | last | handleize %}
+                                                        {% if  color_option_name  ==  current_option_name %}
+                                                            {% assign check_is_filter_color = true %}
+                                                        {% endif %}
+                                                    
+                                                <ul
+                                                    class="ecom-collection__filters-group-list  ecom-scroll_bar{% if check_is_filter_color %} ecom-collection__filters-enable-colors{% endif %}" data-param-name="{{filter.param_name}}" role="list" data-index="{{ forloop.index }}"
+                                                >
+                                                {%- for value in filter.values -%}
+                                                    {%- if true == false or value.count > 0 and true == true -%}
+                                                    <li class="ecom-collection__filters-group-list-item  ecom-filter-hide-checkbox" >
+
+                                                        <label for="ecom-filter-{{ filter.label | escape  | strip }}-{{ forloop.index }}" class="ecom-collection__filters-group-checkbox{% if value.count == 0 and value.active == false %} ecom-collection__filters-group-checkbox--disabled{% endif %}">
+
+                                                            <input type="checkbox"
+                                                            class="ecom-collection__filters-group-checkbox--input "
+                                                            name="{{ value.param_name }}"
+                                                            value="{{ value.value }}"
+                                                            id="ecom-filter-{{ filter.label | escape | strip }}-{{ forloop.index }}"
+                                                            {% if value.active %}checked{% endif %}
+                                                            {% if value.count == 0 and value.active == false %}disabled{% endif %}
+                                                            >
+
+                                                            <span class="ecom-collection__filters-group-checkbox-label ecom-flex ecom-al_center">
+                                                                {% if check_is_filter_color %}
+                                                                    {% assign value_key = value.value | downcase | handleize %}
+                                                                    {% if colors and colors.value[value_key]  != blank %}
+                                                                        <span class="ecom-collection__filters--color-wrapper">
+                                                                            <span class="ecom-collection__filters--color" style="{{colors.value[value_key]}}" data-ecom-tooltip="{{value.label}}"></span>
+                                                                        </span>
+                                                                    {% else %}
+                                                                        <span class="ecom-collection__filters--color-wrapper">
+                                                                            <span class="ecom-collection__filters--color ecom-collection__filters--no-color" data-ecom-tooltip="{{value.label}}"></span>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                {% endif%}
+                                                                {% if presentation == 'swatch' %}
+                                                                    {% assign swatch = value.swatch %}
+                                                                    {%- liquid
+                                                                        assign swatch_value = null
+                                                                        if swatch.image
+                                                                            assign image_url = swatch.image | image_url: width: 50
+                                                                            assign swatch_value = 'url(' | append: image_url | append: ')'
+                                                                            assign swatch_focal_point = swatch.image.presentation.focal_point
+                                                                        elsif swatch.color
+                                                                            assign swatch_value = 'rgb(' | append: swatch.color.rgb | append: ')'
+                                                                        endif
+                                                                    -%}
+                                                                    {% if swatch_value %}
+                                                                        <span class="ecom-collection__filters--color-wrapper">
+                                                                            <span class="ecom-collection__filters--color" style="background:{{ swatch_value }};{% if swatch_focal_point %} --swatch-focal-point: {{ swatch_focal_point }};{% endif %}" data-ecom-tooltip="{{value.label}}"></span>
+                                                                        </span>
+                                                                    {% else %}
+                                                                        <span class="ecom-collection__filters--color-wrapper">
+                                                                            <span class="ecom-collection__filters--color ecom-shopify-color-unavailable"></span>
+                                                                        </span>
+                                                                    {% endif %}
+                                                                {% endif %}
+                                                                {{ value.label | escape }}
+                                                                <span class="ecom-collection__filters--count">({{ value.count }})</span>
+                                                            </span>
+                                                        </label>
+                                                    </li>
+                                                    {%- endif -%}
+                                                {%- endfor -%}
+                                                    
+                                                </ul>
+                                            </div>
+                                            </div>
+                                        {%- endif -%}
+                                    {% when 'price_range' %}
+                                        {% liquid
+                                            assign currencies_using_comma_decimals = 'ANG,ARS,BRL,BYN,BYR,CLF,CLP,COP,CRC,CZK,DKK,EUR,HRK,HUF,IDR,ISK,MZN,NOK,PLN,RON,RUB,SEK,TRY,UYU,VES,VND' | split: ','
+                                            assign uses_comma_decimals = false
+                                            if currencies_using_comma_decimals contains cart.currency.iso_code
+                                                assign uses_comma_decimals = true
+                                            endif
+                                            %}
+
+                                            <div
+                                             open 
+                                            class="ecom-collection__filters-group ecom-collection__filters-group-dropdown ecom-collection__filters-group-price-range" data-index="{{ forloop.index }}">
+                                                <summary class="ecom-collection__filters-group-summary">
+                                                    <div class="ecom-collection__filters-group-header">
+                                                        <span class="ecom-collection__filters-group-summary--title">{{ filter.label | escape }}</span>
+                                                        <span class="ecom-collection__filters-group-count-bubble{%- if filter.min_value.value or filter.max_value.value -%}{{ filter.active_values.size }} count-bubble--dot{% endif %}"></span>
+                                                        
+                                                    </div>
+                                                </summary>
+                                                <div class="ecom-collection__filters-group--display ">
+                                                    {%- comment -%}
+                                                    <div class="ecom-collection__filters-group--header">
+                                                            {%- assign max_price_amount = filter.range_max | money -%}
+                                                            <span class="ecom-collection__filters-group--selected">Max price {{max_price_amount}}</span>
+                                                            <a href="{{ filter.url_to_remove }}" class="ecom-collection__filters-group-reset-filter" >Reset</a>
+                                                        </div>
+                                                    {%- endcomment -%}
+                                                    {%- if false-%}
+                                                        {%- assign max_price_for_step = filter.range_max -%}
+                                                        {% assign price_step = 0 | times: 100 %}
+                                                        {%- assign checked = "" -%}
+                                                        {%- assign filter_max_value = filter.max_value.value -%}
+                                                        {% assign loop_time = max_price_for_step | divided_by: price_step %}
+                                                        {% if loop_time < 1 %}
+                                                        {%- assign loop_time = 1 -%}
+                                                        {%- endif -%}
+                                                        {% if loop_time > 50 %}
+                                                            {% if EComBuilderMode %}<span class="ecom-collection__filters-notice-label">Notice: Too many options, please enter a value greater than.</span>{%- endif -%}
+                                                        {%- else -%}
+                                                            <div class="ecom-collection-filters--price-step">
+                                                                <ul class ="ecom-collection__filters-group-list ecom-scroll_bar">
+
+                                                                    {% for i in (0..loop_time) %}
+                                                                        {% if i < loop_time %}
+                                                                        {% assign price_range = i | times: price_step %}
+                                                                        {% assign price_range_step = price_range | plus: price_step %}
+
+                                                                        <li class="ecom-collection__filters-group-list-item">
+
+                                                                            <label class = "ecom-collection__filters-group-radio  ecom-flex ecom-al_center" >
+
+                                                                                {% if price_range_step < max_price_for_step %}
+                                                                                    <input class="ecom-collection__filters-group-radio--input" type="radio" name="{{ filter.min_value.param_name}}" value="{{price_range | money_without_currency}}" {% if price_range_step == filter_max_value %}checked{% endif %}>
+                                                                                    <input class="ecom-collection__filters-radio--input-hidden" type="radio" name="{{ filter.max_value.param_name}}" value="{{price_range_step | money_without_currency}}">
+                                                                                    <span class="ecom-collection__filters-group-radio-label" ecom-flex ecom-al_center>{{price_range| money}}  <span class="ecom-collection-filters--seperate">-</span> {{price_range_step| money}}</span>
+                                                                                {%- else -%}
+                                                                                    {%- assign price_range_step = max_price_for_step %}
+                                                                                    <input class="ecom-collection__filters-group-radio--input" type="radio" name="{{ filter.min_value.param_name}}" value="{{price_range | money_without_currency}}" {% if price_range_step == filter_max_value %}checked{% endif %}>
+                                                                                    <input class="ecom-collection__filters-radio--input-hidden" type="radio" name="{{ filter.max_value.param_name}}" value="{{price_range_step | money_without_currency}}">
+                                                                                    <span class="ecom-collection__filters-group-radio-label" ecom-flex ecom-al_center>{{price_range| money}}  <span class="ecom-collection-filters--seperate">-</span> {{price_range_step| money}}</span>
+                                                                                {% endif %}
+                                                                            </label>
+                                                                        </li>
+                                                                        {% endif %}
+                                                                        {% if i == loop_time and price_range < max_price_for_step %}
+                                                                        {% assign price_range = i | times: price_step %}
+                                                                            {% if  price_range < max_price_for_step %}
+                                                                                <li class="ecom-collection__filters-group-list-item">
+                                                                                    <label class = "ecom-collection__filters-group-radio  ecom-flex ecom-al_center" >
+                                                                                        <input class="ecom-collection__filters-group-radio--input" type="radio" name="{{filter.min_value.param_name}}" value="{{price_range | money_without_currency}}" {% if max_price_for_step == filter_max_value %}checked{% endif %}>
+                                                                                        <input class="ecom-collection__filters-radio--input-hidden" type="radio" name="{{ filter.max_value.param_name}}" value="{{max_price_for_step | money_without_currency}}">
+                                                                                    <span class="ecom-collection__filters-group-radio-label" ecom-flex ecom-al_center>{{price_range | money}} <span class="ecom-collection-filters--seperate">-</span> {{max_price_for_step | money}}</span>
+                                                                                    </label>
+                                                                                </li>
+                                                                            {% endif %}
+                                                                        {% endif %}
+                                                                    {% endfor %}
+                                                                </ul>
+                                                            </div>
+                                                        {%- endif -%}
+                                                    {%- elsif false -%}
+                                                        {%- assign max_price_for_step = filter.range_max -%}
+                                                        {% assign segment_step = 0 | floor
+                                                        %}
+                                                        {%- assign price_step = max_price_for_step |times: 1.00 | divided_by: segment_step -%}
+                                                        {%- assign checked = "" -%}
+                                                        {%- assign filter_max_value = filter.max_value.value -%}
+                                                        {% assign loop_time = segment_step %}
+                                                        <div class="ecom-collection-filters--price-step">
+                                                            <ul class ="ecom-collection__filters-group-list ecom-scroll_bar">
+                                                                {% for i in (0..loop_time) %}
+                                                                    {% if i < loop_time %}
+                                                                    {% assign price_range = i | times: price_step %}
+                                                                    {% assign price_range_step = price_range | plus: price_step | round %}
+                                                                    <li class="ecom-collection__filters-group-list-item">
+                                                                        <label class = "ecom-collection__filters-group-radio  ecom-flex ecom-al_center" >
+                                                                            <input class="ecom-collection__filters-group-radio--input" type="radio" name="{{ filter.min_value.param_name}}" value="{{price_range | money_without_currency}}" {% if price_range_step == filter_max_value %}checked{% endif %}>
+                                                                            <input class="ecom-collection__filters-radio--input-hidden" type="radio" name="{{ filter.max_value.param_name}}" value="{{price_range_step | money_without_currency}}">
+                                                                            <span class="ecom-collection__filters-group-radio-label" ecom-flex ecom-al_center>{{price_range| money}}  <span class="ecom-collection-filters--seperate">-</span> {{price_range_step| money}}</span>
+                                                                        </label>
+                                                                    </li>
+                                                                    {% endif %}
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    {%- else -%}
+                                                        <price-range class="ecom-collection__filters-group-price">
+                                                                <div class="ecom-collection__filters-group-field">
+                                                                    <label class="ecom-collection__filters-group-field--label" for="Search-In-Modal">From</label>
+                                                                    <span class="ecom-collection__filters-group-field--currency">{{ cart.currency.symbol }}</span>
+                                                                    <input class="ecom-collection__filters-group-field--input ecom-collection__filters-price-range-min"
+                                                                    name="{{ filter.min_value.param_name }}"
+                                                                    id="ecom-filter-{{ filter.label | escape | strip  }}-{{ forloop.index }}"
+                                                                    {%- if filter.min_value.value -%}
+                                                                        {%- if uses_comma_decimals -%}
+                                                                        value="{{ filter.min_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                                                                        {%- else -%}
+                                                                        value="{{ filter.min_value.value | money_without_currency | replace: ',', '' }}"
+                                                                        {% endif %}
+                                                                    {%- endif -%}
+                                                                    type="number"
+                                                                    placeholder="0"
+                                                                    min="0"
+                                                                    max="{{ filter.range_max | divided_by: 100.00}}">
+                                                                    </input>
+                                                                </div>
+                                                                <div class="ecom-collection__filters-group-field">
+                                                                <label class="ecom-collection__filters-group-field--label" for="Search-In-Modal">To</label>
+                                                                    <span class="ecom-collection__filters-group-field--currency">{{ cart.currency.symbol }}</span>
+                                                                    <input class="ecom-collection__filters-group-field--input ecom-collection__filters-price-range-max"
+                                                                    name="{{ filter.max_value.param_name }}"
+                                                                    id="ecom-Filter-{{ filter.label | escape }}-{{ forloop.index }}"
+                                                                    {%- if filter.max_value.value -%}
+                                                                        {%- if uses_comma_decimals -%}
+                                                                        value="{{ filter.max_value.value | money_without_currency | replace: '.', '' | replace: ',', '.' }}"
+                                                                        {%- else -%}
+                                                                        value="{{ filter.max_value.value | money_without_currency | replace: ',', '' }}"
+                                                                        {% endif %}
+                                                                    {%- endif -%}
+                                                                    type="number"
+                                                                    placeholder="{{ filter.range_max | money_without_currency | replace: ',', '' }}"
+                                                                    min="0"
+                                                                    max="{{ filter.range_max | divided_by: 100.00 }}">
+                                                                    </input>
+
+                                                                </div>
+                                                        </price-range>
+                                                        <div class="ecom-collection-filters--price-range">
+                                                            <div class="ecom-collection-filters--prices">
+                                                                {%- assign max_price = filter.max_value.value -%}
+                                                                {%- unless max_price -%}
+                                                                    {%- assign max_price = filter.range_max -%}
+                                                                {%- endunless -%}
+                                                                {%- assign min_price = filter.min_value.value -%}
+                                                                {%- unless min_price -%}
+                                                                    {%- assign min_price = 0 -%}
+                                                                {%- endunless -%}
+                                                                <span id="ecom-collection-filters--price-from" class="ecom-collection-filters--price ecom-filter-price-from">{{ min_price  | money }}</span>
+                                                                <span class="ecom-collection-filters--seperate">-</span>
+                                                                <span id="ecom-collection-filters--price-to" class="ecom-collection-filters--price ecom-filter-price-to">{{max_price | money }}</span>
+                                                            </div>
+                                                            {%- assign per_min = 0 -%}
+                                                            {%- assign per_max = 100 -%}
+                                                            {%- if filter.min_value.value -%}
+                                                                {%- assign per_min = filter.min_value.value | times: 1.00 | divided_by: filter.range_max | times: 100 -%}
+                                                            {%- endif -%}
+                                                            {%- if filter.max_value.value -%}
+                                                                {%- assign per_max = filter.max_value.value | times: 1.00 | divided_by: filter.range_max | times: 100 -%}
+                                                            {%- endif -%}
+                                                            <div class="ecom-collection-filters--multi-range">
+                                                                <input id="ecom-collection-filters--input-min" class="ecom-filter-input-min" type="range" min="0" max="100" value="{{per_min}}" step="0.01" />
+                                                                <input id="ecom-collection-filters--input-max" class="ecom-filter-input-max" type="range" min="0" max="100" value="{{per_max}}" step="0.01" />
+                                                            </div>
+                                                        </div>
+                                                    {%- endif -%}
+                                                </div>
+
+
+                                            </div>
+                                        {% endcase %}
+                                    {%- endfor -%}
+                                </div>
+                            </div>
+                        </div>
+                        <!--/EComposer-custom-liquid-filters-rb9betpxyq-->
